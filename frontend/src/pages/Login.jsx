@@ -21,6 +21,7 @@ function Login() {
       try {
         const data = await getEmployees()
         setEmployees(Array.isArray(data) ? data : [])
+        setError("")
       } catch (err) {
         setError("Backend not connected")
       }
@@ -30,6 +31,8 @@ function Login() {
   }, [])
 
   const handleEmployeeLogin = () => {
+    setError("")
+
     const foundUser = employees.find(
       (emp) =>
         String(emp.employee_id).toUpperCase() ===
@@ -48,6 +51,8 @@ function Login() {
   }
 
   const handleHRLogin = () => {
+    setError("")
+
     if (
       hrId.trim().toUpperCase() === "HR001" &&
       password.trim() === "admin123"
@@ -59,82 +64,238 @@ function Login() {
   }
 
   return (
-    <div className="login-page">
-      <div className="login-box">
-        <h1>Smart Chair Login</h1>
+    <div className="ergonova-login">
+      <div className="chair-visual">
+  <div className="chair-back"></div>
+  <div className="chair-seat"></div>
+  <div className="chair-arm left-arm"></div>
+  <div className="chair-arm right-arm"></div>
+  <div className="chair-support"></div>
+  <div className="chair-base"></div>
+  <div className="chair-wheel wheel-1"></div>
+  <div className="chair-wheel wheel-2"></div>
+  <div className="chair-wheel wheel-3"></div>
 
-        <p className="login-subtitle">
-          Employee Productivity Monitoring System
-        </p>
+  <span className="chair-sensor sensor-1">MPU</span>
+  <span className="chair-sensor sensor-2">FSR</span>
+  <span className="chair-sensor sensor-3">FLEX</span>
+</div>
 
-        <div className="role-buttons">
+      {/* Background effects */}
+      <div className="glow glow-one"></div>
+      <div className="glow glow-two"></div>
+
+      <div className="background-orbit orbit-one"></div>
+      <div className="background-orbit orbit-two"></div>
+      <div className="background-orbit orbit-three"></div>
+
+      {/* Brand */}
+      <div className="brand">
+
+        <div className="brand-icon">
+          <span>⌁</span>
+        </div>
+
+        <h1>
+          ERGONOVA <span>AI</span>
+        </h1>
+
+        <p>Intelligent Ergonomics</p>
+
+      </div>
+
+      {/* Login Card */}
+      <div className="login-card">
+
+        <div className="card-line"></div>
+
+        <div className="login-header">
+          <h2>LOGIN</h2>
+          <p>Access your intelligent workspace</p>
+        </div>
+
+        {/* Role selector */}
+        <div className="role-selector">
+
           <button
-            className={role === "employee" ? "active-role" : ""}
+            type="button"
+            className={`role ${
+              role === "employee" ? "active" : ""
+            }`}
             onClick={() => {
               setRole("employee")
               setError("")
             }}
           >
-            Employee Login
+            <span className="role-icon">◉</span>
+            Employee
           </button>
 
           <button
-            className={role === "hr" ? "active-role" : ""}
+            type="button"
+            className={`role ${
+              role === "hr" ? "active" : ""
+            }`}
             onClick={() => {
               setRole("hr")
               setError("")
             }}
           >
-            HR Login
+            <span className="role-icon">◇</span>
+            HR
           </button>
+
         </div>
 
-        {role === "employee" ? (
-          <>
-            <input
-              type="text"
-              placeholder="Employee ID"
-              value={employeeId}
-              onChange={(e) => setEmployeeId(e.target.value)}
-            />
+        {/* Employee Login */}
+        {role === "employee" && (
+          <div className="form-container">
 
-            <input
-              type="text"
-              placeholder="RFID Tag ID"
-              value={rfid}
-              onChange={(e) => setRfid(e.target.value)}
-            />
+            <div className="input-group">
 
-            <button onClick={handleEmployeeLogin}>Login</button>
-          </>
-        ) : (
-          <>
-            <input
-              type="text"
-              placeholder="HR ID"
-              value={hrId}
-              onChange={(e) => setHrId(e.target.value)}
-            />
+              <label>EMPLOYEE ID</label>
 
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+              <div className="input-wrapper">
 
-            <button className="hr-btn" onClick={handleHRLogin}>
-              HR Login
+                <div className="input-icon">
+                  ID
+                </div>
+
+                <input
+                  type="text"
+                  placeholder="Enter employee ID"
+                  value={employeeId}
+                  onChange={(e) => {
+                    setEmployeeId(e.target.value)
+                    setError("")
+                  }}
+                />
+
+              </div>
+
+            </div>
+
+            <div className="input-group">
+
+              <label>RFID TAG</label>
+
+              <div className="input-wrapper">
+
+                <div className="input-icon">
+                  ◉
+                </div>
+
+                <input
+                  type="text"
+                  placeholder="Enter RFID tag"
+                  value={rfid}
+                  onChange={(e) => {
+                    setRfid(e.target.value)
+                    setError("")
+                  }}
+                />
+
+              </div>
+
+            </div>
+
+            <button
+              className="login-button"
+              onClick={handleEmployeeLogin}
+            >
+              LOGIN
+              <span>→</span>
             </button>
-          </>
+
+          </div>
         )}
 
-        {error && (
-          <p style={{ color: "red", marginTop: "15px", textAlign: "center" }}>
-            {error}
-          </p>
+        {/* HR Login */}
+        {role === "hr" && (
+          <div className="form-container">
+
+            <div className="input-group">
+
+              <label>HR ID</label>
+
+              <div className="input-wrapper">
+
+                <div className="input-icon">
+                  HR
+                </div>
+
+                <input
+                  type="text"
+                  placeholder="Enter HR ID"
+                  value={hrId}
+                  onChange={(e) => {
+                    setHrId(e.target.value)
+                    setError("")
+                  }}
+                />
+
+              </div>
+
+            </div>
+
+            <div className="input-group">
+
+              <label>PASSWORD</label>
+
+              <div className="input-wrapper">
+
+                <div className="input-icon">
+                  •••
+                </div>
+
+                <input
+                  type="password"
+                  placeholder="Enter password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value)
+                    setError("")
+                  }}
+                />
+
+              </div>
+
+            </div>
+
+            <button
+              className="login-button"
+              onClick={handleHRLogin}
+            >
+              HR LOGIN
+              <span>→</span>
+            </button>
+
+          </div>
         )}
+
+        {/* Error */}
+        {error && (
+          <div className="login-error">
+            <span>!</span>
+            {error}
+          </div>
+        )}
+
+        {/* Security */}
+        <div className="secure-login">
+          <span className="secure-dot"></span>
+          Secure AI-enabled authentication
+        </div>
+
       </div>
+
+      {/* Footer */}
+      <div className="login-footer">
+        <span>ERGONOVA AI</span>
+        <span className="footer-divider">•</span>
+        Intelligent Employee Well-being
+      </div>
+
     </div>
   )
 }

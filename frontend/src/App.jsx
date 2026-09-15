@@ -1,6 +1,5 @@
 import { useContext } from "react"
-import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom"
-
+import { BrowserRouter, Routes, Route, Link, NavLink, useNavigate } from "react-router-dom"
 import Login from "./pages/Login"
 import Dashboard from "./pages/Dashboard"
 import EmployeeMonitoring from "./pages/EmployeeMonitoring"
@@ -24,18 +23,54 @@ function App() {
           path="/*"
           element={
             <div className="dashboard">
-              <aside className="sidebar">
-                <SidebarProfile />
+             <aside className="sidebar ergonova-sidebar">
 
-                <nav>
-                  <Link to="/dashboard">🏠 Home</Link>
-                  <Link to="/employee">👩‍💼 Employee</Link>
-                  <Link to="/posture">🪑 Posture</Link>
-                  <Link to="/productivity">📊 Productivity</Link>
-                  <Link to="/alerts">⚠️ Alerts</Link>
-                  <Link to="/reports">📄 Reports</Link>
-                </nav>
-              </aside>
+  <div className="sidebar-brand">
+    <div className="sidebar-logo">E</div>
+
+    <div>
+      <h2>ERGONOVA AI</h2>
+      <span>ERGONOMIC INTELLIGENCE</span>
+    </div>
+  </div>
+
+  <SidebarProfile />
+
+  <nav className="sidebar-nav">
+
+    <Link to="/dashboard">
+      <span className="nav-icon">⌂</span>
+      <span>Home</span>
+    </Link>
+
+    <Link to="/employee">
+      <span className="nav-icon">◉</span>
+      <span>Employee</span>
+    </Link>
+
+    <Link to="/posture">
+      <span className="nav-icon">◇</span>
+      <span>Posture</span>
+    </Link>
+
+    <Link to="/productivity">
+      <span className="nav-icon">◌</span>
+      <span>Productivity</span>
+    </Link>
+
+    <Link to="/alerts">
+      <span className="nav-icon">!</span>
+      <span>Alerts</span>
+    </Link>
+
+    <Link to="/reports">
+      <span className="nav-icon">▤</span>
+      <span>Reports</span>
+    </Link>
+
+  </nav>
+
+</aside>
 
               <main className="main">
                 <Routes>
